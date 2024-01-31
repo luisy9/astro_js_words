@@ -3,18 +3,51 @@ import Tornar from '../../components/Tornar.astro';
 import Layout from '../../layouts/Layout.astro';
 import words from '../../data/castellano.js';
 const { inici } = Astro.params;
+
+// const arrWord = Array.from(inici);
+const regexValidation =
+ '^' + 
+  inici
+  .split('')
+    .map((leter) => {
+      if (leter !== '_') {
+        return leter.toLowerCase();
+      } else {
+        return '\\w';
+      }
+    }).join('') + '$';
+
+const newRegex = new RegExp(regexValidation);
+
+let wordsMached = words.filter(w => newRegex.test(w));
+
 ---
 
 <Layout titol={inici}>
   <Tornar url='/scrabel' />
-  <h1 class=''>Paraules en castellà que comencen amb { inici }</h1>
+  <h1 class=''>Paraules en castellà que comencen amb {inici}</h1>
   <br />
   <br />
 
   <div class=''>
     <div class='grid grid-cols-4 gap-4'>
-      <h1>{inici}</h1>
-      <!-- { words.filter((e) => e.length === inici.length).map(e => <h1>{e}</h1>) } -->
+      <!-- <h1>{inici}</h1> -->
+      {/*Regex */}
+      {wordsMached.map((e) => <h1>{e}</h1>)}
+      {
+          /* Bucles Logica */
+          // words
+          //   .filter((e) => e.length === inici.length)
+          //   .filter((palabra) => {
+          //     for (let i = 0; i < inici.length; i++) {
+          //       if (inici[i] != palabra[i] && inici[i] != '_') {
+          //         return false;
+          //       }
+          //     }
+          //     return true;
+          //   })
+          //   .map((e) => <h1>{e}</h1>)
+      }
     </div>
   </div>
 </Layout>
