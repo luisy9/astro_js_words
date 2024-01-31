@@ -4,7 +4,7 @@ import Tornar from '../../components/Tornar.astro';
 
 if (Astro.request.method === 'POST') {
   const data = await Astro.request.formData();
-  const inici = data.get('inici');
+  const inici = data.get('word');
   console.log(inici);
   return Astro.redirect('/scrabel/' + inici);
 }
@@ -15,7 +15,7 @@ if (Astro.request.method === 'POST') {
 
   <div class="flex justify-center pb-10">
     <form method='post'>
-      <input type='text' class='border rounded-full p-1 px-10 border-black' name='inici' />
+      <input type='text' class='border rounded-full p-1 px-10 border-black' name='word' />
       <button class="rounded-full bg-sky-400 text-white ml-3 p-1.5 px-5 hover:bg-cyan-300">Enviar</button>
     </form>
   </div>
